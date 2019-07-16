@@ -1,0 +1,4 @@
+login(Alice),0.8
+logout(Alice),  1.2
+login(Bob),2.0
+logout(Bob),3.5

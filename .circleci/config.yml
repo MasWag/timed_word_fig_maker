@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: texlive/texlive-full
+    steps:
+      - run:
+          name: Setup
+          command: apt-get update && apt-get install pdf2svg git -y
+      - checkout
+      - run:
+          name: make TeX
+          command: awk -v scale=5.0 -v duration=3.7 -f ./draw.awk  < ./examples/input.csv > output.tex
+      - run:
+          name: make pdf
+          command: pdflatex output.tex
+      - run :
+          name: make svg
+          command: pdf2svg output.pdf output.svg
+      - run:
+          name: compare svg
+          command: diff output.svg examples/output.svg

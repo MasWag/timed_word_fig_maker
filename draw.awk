@@ -31,19 +31,32 @@ BEGIN{
     print "\\begin{tikzpicture}"
     print "% scale"
     printf "\\draw [thick, -stealth](-0.5,0)--(%f,0) node [anchor=north]{$t$};\n", duration * scale
-    print "\\draw (0,0.1) -- (0,-0.1) node [anchor=north]{$0$};"
+    print "\\draw (0,0.2) -- (0,-0.2) node [anchor=north]{$0$};"
     print ""
     print "% alphabets"
+    last_timestamp = 0
+}
+NF >= 3 {
+    timestamp = $2
+    scaled_timestamp = timestamp * scale
+    scaled_last_timestamp = last_timestamp * scale
+    label = ""
+    for(i=3; i<=NF-1; i++) {
+        label = label $i", "
+    }
+    label = label $NF
+    printf "\\path (%f,0.1) edge[bend left] node[above] {%s} (%f,0.1);\n", scaled_last_timestamp, label, scaled_timestamp
 }
 {
     event = $1
     timestamp = $2
     scaled_timestamp = timestamp * scale
     if (no_timestamp) {
-        printf "\\draw (%f,0.1) node[anchor=south]{%s} -- (%f,-0.1);\n",  scaled_timestamp, event, scaled_timestamp
+        printf "\\draw (%f,0.2) node[anchor=south]{%s} -- (%f,-0.2);\n",  scaled_timestamp, event, scaled_timestamp
     } else {
-        printf "\\draw (%f,0.1) node[anchor=south]{%s} -- (%f,-0.1) node[anchor=north]{%s};\n",  scaled_timestamp, event, scaled_timestamp, timestamp
+        printf "\\draw (%f,0.2) node[anchor=south]{%s} -- (%f,-0.2) node[anchor=north]{%s};\n",  scaled_timestamp, event, scaled_timestamp, timestamp
     }
+    last_timestamp = timestamp
 }
 END {
     print "\\end{tikzpicture}"

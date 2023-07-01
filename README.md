@@ -1,7 +1,7 @@
 timed word fig maker
 ====================
 
-[![CircleCI](https://circleci.com/gh/MasWag/timed_word_fig_maker.svg?style=svg)](https://circleci.com/gh/MasWag/timed_word_fig_maker)
+[![Regression Test](https://github.com/MasWag/timed_word_fig_maker/actions/workflows/regression_test.yml/badge.svg?branch=master)](https://github.com/MasWag/timed_word_fig_maker/actions/workflows/regression_test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 Generate a figure of timed word from csv input. 

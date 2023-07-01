@@ -39,7 +39,11 @@ BEGIN{
     event = $1
     timestamp = $2
     scaled_timestamp = timestamp * scale
-    printf "\\draw (%f,0.1) node[anchor=south]{%s} -- (%f,-0.1) node[anchor=north]{%s};\n",  scaled_timestamp, event, scaled_timestamp, timestamp
+    if (no_timestamp) {
+        printf "\\draw (%f,0.1) node[anchor=south]{%s} -- (%f,-0.1);\n",  scaled_timestamp, event, scaled_timestamp
+    } else {
+        printf "\\draw (%f,0.1) node[anchor=south]{%s} -- (%f,-0.1) node[anchor=north]{%s};\n",  scaled_timestamp, event, scaled_timestamp, timestamp
+    }
 }
 END {
     print "\\end{tikzpicture}"

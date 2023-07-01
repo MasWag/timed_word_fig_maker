@@ -1,0 +1,31 @@
+name: Regression Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-latex-extra pdf2svg git
+
+    - name: make TeX
+      run: awk -v scale=5.0 -v duration=3.7 -f ./draw.awk  < ./examples/input.csv > output.tex
+
+    - name: make pdf
+      run: pdflatex output.tex
+
+    - name: make svg
+      run: pdf2svg output.pdf output.svg
+
+    - name: compare svg
+      run: diff output.svg examples/output.svg

@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: texlive/texlive-full
+      - image: texlive/texlive
     steps:
       - run:
           name: Setup

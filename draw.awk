@@ -1,4 +1,18 @@
 #!/usr/bin/env awk -f
+#****h* timed_word_fig_maker/draw
+# NAME
+#  timed_word_fig_maker
+# DESCRIPTION
+#  Generates a figure of timed word from CSV input.
+#
+# EXAMPLE
+#   awk -v scale=5.0 -v duration=3.7 -f ./draw.awk  < ./examples/input.csv > output.tex
+#   pdflatex output.tex
+#   pdf2svg output.pdf output.svg
+#
+# PORTABILITY
+#  The script `draw.awk` only depends on an AWK, but to generate pdf or svg figure, you also need `pdflatex` and `pdf2svg`.
+#******
 
 BEGIN{
     FS = ","
